@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마스토돈 툿 파일 HTML 변환기</title>
+    <title>대화 타래 변환기</title>
     <style>
         body {
-            font-family: 'RiaSans-ExtraBold', Arial, sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
 
         .container {
@@ -18,96 +18,72 @@
             padding: 20px;
         }
 
-        h1 {
-            text-align: center;
-        }
-
-        .button {
+        .file-input {
             display: block;
-            width: 200px;
             margin: 20px auto;
-            padding: 10px;
-            text-align: center;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
+        }
+
+        .message {
+            background-color: #e3f2fd;
             border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
         }
 
-        .button:hover {
-            background-color: #0056b3;
+        .user-message {
+            background-color: #bbdefb;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
+        .bot-message {
+            background-color: #c8e6c9;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>마스토돈 툿 파일 HTML 변환기</h1>
-        <p>마스토돈 툿 파일을 업로드하여 HTML로 변환하세요.</p>
-        <input type="file" id="fileInput" class="button" />
-        <p>변환된 멘션 아이디와 내용은 아래 테이블에 표시됩니다.</p>
-        <table id="jsonTable">
-            <thead>
-                <tr>
-                    <th>멘션 아이디</th>
-                    <th>멘션 내용</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- JSON 데이터가 여기에 표시됩니다 -->
-            </tbody>
-        </table>
+        <h1>대화 타래 변환기</h1>
+        <input type="file" class="file-input" id="fileInput" accept=".json,.txt">
+        <div id="chatContainer"></div>
     </div>
 
     <script>
-        document.getElementById('fileInput').addEventListener('change', function(event) {
+        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+
+        function handleFileUpload(event) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const jsonData = JSON.parse(e.target.result);
-                        displayMentions(jsonData);
-                    } catch (error) {
-                        alert('유효한 JSON 파일이 아닙니다. 다시 시도해주세요.');
-                    }
-                };
-                reader.readAsText(file);
-            }
-        });
+            if (!file) return;
 
-        function displayMentions(data) {
-            const tableBody = document.getElementById('jsonTable').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // 테이블 초기화
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileContent = e.target.result;
+                try {
+                    const parsedData = JSON.parse(fileContent);
+                    displayMessages(parsedData);
+                } catch (error) {
+                    alert('파일을 읽는 중 오류가 발생했습니다.');
+                }
+            };
+            reader.readAsText(file);
+        }
 
-            // 'items' 배열 내의 각 멘션 데이터를 테이블에 추가
-            if (data.items && Array.isArray(data.items)) {
-                data.items.forEach(item => {
-                    const row = tableBody.insertRow();
-                    const idCell = row.insertCell(0);
-                    const contentCell = row.insertCell(1);
+        function displayMessages(data) {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.innerHTML = ''; // Clear previous messages
 
-                    idCell.textContent = item.mentionId || '아이디 없음';
-                    contentCell.textContent = item.mentionContent || '내용 없음';
-                });
-            } else {
-                alert('멘션 데이터가 없습니다.');
-            }
+            // Example structure of parsed data
+            data.messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                
+                if (msg.type === 'user') {
+                    messageDiv.classList.add('user-message');
+                    messageDiv.innerText = `User: ${msg.content}`;
+                } else if (msg.type === 'bot') {
+                    messageDiv.classList.add('bot-message');
+                    messageDiv.innerText = `Bot: ${msg.content}`;
+                }
+                chatContainer.appendChild(messageDiv);
+            });
         }
     </script>
 </body>
