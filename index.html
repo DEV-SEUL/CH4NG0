@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마스토돈 툿 파일 HTML 변환기</title>
     <style>
-        /* 스타일 추가 */
         body {
             font-family: 'RiaSans-ExtraBold', Arial, sans-serif;
             background-color: #f4f4f4;
@@ -39,69 +38,76 @@
             background-color: #0056b3;
         }
 
-        #loading {
-            text-align: center;
-            font-size: 18px;
-            color: #007bff;
-            display: none;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>마스토돈 툿 파일 HTML 변환기</h1>
-        <input type="file" id="file-upload" accept=".json" />
-        <button class="button" id="next-step-btn" disabled>파일 업로드 후 변환</button>
-        <div id="loading" style="display: none;">변환 중... 잠시만 기다려 주세요.</div>
-        <div id="file-info"></div>
-        <div id="html-preview"></div>
-        <a href="#" id="download-btn" style="display:none;" download="converted.html">변환된 HTML 다운로드</a>
+        <p>마스토돈 툿 파일을 업로드하여 HTML로 변환하세요.</p>
+        <input type="file" id="fileInput" class="button" />
+        <p>변환된 멘션 아이디와 내용은 아래 테이블에 표시됩니다.</p>
+        <table id="jsonTable">
+            <thead>
+                <tr>
+                    <th>멘션 아이디</th>
+                    <th>멘션 내용</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- JSON 데이터가 여기에 표시됩니다 -->
+            </tbody>
+        </table>
     </div>
 
     <script>
-        document.getElementById("file-upload").addEventListener("change", function(event) {
+        document.getElementById('fileInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                document.getElementById("file-info").innerHTML = `파일 이름: ${file.name}<br>파일 크기: ${(file.size / 1024).toFixed(2)} KB`;
-                document.getElementById("next-step-btn").disabled = false;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        displayMentions(jsonData);
+                    } catch (error) {
+                        alert('유효한 JSON 파일이 아닙니다. 다시 시도해주세요.');
+                    }
+                };
+                reader.readAsText(file);
             }
         });
 
-        document.getElementById("next-step-btn").addEventListener("click", function() {
-            const file = document.getElementById("file-upload").files[0];
-            const reader = new FileReader();
+        function displayMentions(data) {
+            const tableBody = document.getElementById('jsonTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // 테이블 초기화
 
-            document.getElementById("loading").style.display = "block";  // 로딩 메시지 표시
+            // 'items' 배열 내의 각 멘션 데이터를 테이블에 추가
+            if (data.items && Array.isArray(data.items)) {
+                data.items.forEach(item => {
+                    const row = tableBody.insertRow();
+                    const idCell = row.insertCell(0);
+                    const contentCell = row.insertCell(1);
 
-            reader.onload = function(e) {
-                try {
-                    const jsonData = JSON.parse(e.target.result);
-                    const htmlContent = convertJsonToHtml(jsonData);
-
-                    const blob = new Blob([htmlContent], { type: 'text/html' });
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    link.download = "converted.html";
-                    link.click();  // 자동으로 다운로드
-                } catch (error) {
-                    alert("잘못된 JSON 파일입니다.");
-                } finally {
-                    document.getElementById("loading").style.display = "none";  // 로딩 숨기기
-                }
-            };
-
-            reader.readAsText(file);
-        });
-
-        function convertJsonToHtml(jsonData) {
-            let htmlContent = "<table border='1'><tr><th>Key</th><th>Value</th></tr>";
-            for (const key in jsonData) {
-                if (jsonData.hasOwnProperty(key)) {
-                    htmlContent += `<tr><td>${key}</td><td>${jsonData[key]}</td></tr>`;
-                }
+                    idCell.textContent = item.mentionId || '아이디 없음';
+                    contentCell.textContent = item.mentionContent || '내용 없음';
+                });
+            } else {
+                alert('멘션 데이터가 없습니다.');
             }
-            htmlContent += "</table>";
-            return htmlContent;
         }
     </script>
 </body>
