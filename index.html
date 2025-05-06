@@ -1,90 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대화 타래 변환기</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .file-input {
-            display: block;
-            margin: 20px auto;
-        }
-
-        .message {
-            background-color: #e3f2fd;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .user-message {
-            background-color: #bbdefb;
-        }
-
-        .bot-message {
-            background-color: #c8e6c9;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>트위터 DM 뷰어</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>대화 타래 변환기</h1>
-        <input type="file" class="file-input" id="fileInput" accept=".json,.txt">
-        <div id="chatContainer"></div>
-    </div>
-
-    <script>
-        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
-
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const fileContent = e.target.result;
-                try {
-                    const parsedData = JSON.parse(fileContent);
-                    displayMessages(parsedData);
-                } catch (error) {
-                    alert('파일을 읽는 중 오류가 발생했습니다.');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        function displayMessages(data) {
-            const chatContainer = document.getElementById('chatContainer');
-            chatContainer.innerHTML = ''; // Clear previous messages
-
-            // Example structure of parsed data
-            data.messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message');
-                
-                if (msg.type === 'user') {
-                    messageDiv.classList.add('user-message');
-                    messageDiv.innerText = `User: ${msg.content}`;
-                } else if (msg.type === 'bot') {
-                    messageDiv.classList.add('bot-message');
-                    messageDiv.innerText = `Bot: ${msg.content}`;
-                }
-                chatContainer.appendChild(messageDiv);
-            });
-        }
-    </script>
+  <h1>📬 트위터 DM 뷰어</h1>
+  <input type="file" id="fileInput" accept=".js" />
+  <div id="messages"></div>
+  <script src="script.js"></script>
 </body>
 </html>
