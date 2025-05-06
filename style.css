@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+  padding: 2rem;
+  background: #f0f0f0;
+}
+#fileInput {
+  margin-bottom: 1.5rem;
+}
+.message {
+  background: white;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.sender {
+  font-weight: bold;
+  color: #1DA1F2;
+}
+.timestamp {
+  font-size: 0.8em;
+  color: gray;
+}
+.content {
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+}
