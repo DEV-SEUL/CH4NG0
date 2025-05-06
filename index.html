@@ -3,12 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <title>트위터 DM 뷰어</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f8f9fa;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #1DA1F2;
+    }
+    #uploadSection {
+      margin-bottom: 2rem;
+    }
+    #fileInput {
+      padding: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .message {
+      background: white;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .sender {
+      font-weight: bold;
+      color: #1DA1F2;
+    }
+    .timestamp {
+      font-size: 0.85em;
+      color: gray;
+    }
+    .content {
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
   <h1>📬 트위터 DM 뷰어</h1>
-  <input type="file" id="fileInput" accept=".js" />
+
+  <div id="uploadSection">
+    <input type="file" id="fileInput" accept=".js" />
+    <p>📁 트위터의 <code>direct-messages.js</code> 파일을 업로드하세요</p>
+  </div>
+
   <div id="messages"></div>
-  <script src="script.js"></script>
+
+  <script>
+    const idToName = {
+      "123456789": "나",        // 여기에 본인 ID
+      "987654321": "상대방"     // 상대방 ID
+    };
+
+    document.getElementById("fileInput").addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const text = await file.text();
+      const jsonData = JSON.parse(text.replace(/^.*?=\s*/, ''));
+      const messages = [];
+
+      jsonData.forEach(group => {
+        group.dmConversation.messages.forEach(msg => {
+          const data = msg.messageCreate;
+          if (data) {
+            const sender = idToName[data.senderId] || `ID:${data.senderId}`;
+            const time = new Date(data.createdAt).toLocaleString();
+            const content = data.text || "";
+            messages.push({ sender, time, content });
+          }
+        });
+      });
+
+      messages.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+      const container = document.getElementById("messages");
+      container.innerHTML = "";
+      messages.forEach(msg => {
+        container.innerHTML += `
+          <div class="message">
+            <div class="sender">${msg.sender}</div>
+            <div class="timestamp">${msg.time}</div>
+            <div class="content">${msg.content}</div>
+          </div>
+        `;
+      });
+    });
+  </script>
 </body>
 </html>
