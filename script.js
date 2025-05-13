@@ -1,41 +1,16 @@
-const idToName = {
-  "123456789": "나",
-  "987654321": "상대방"
-};
+document.getElementById('fontSize').addEventListener('change', updateText);
+document.getElementById('fontColor').addEventListener('input', updateText);
+document.getElementById('fontFamily').addEventListener('change', updateText);
 
-document.getElementById("fileInput").addEventListener("change", async (event) => {
-  const file = event.target.files[0];
-  if (!file) return;
+function updateText() {
+    const inputText = document.getElementById('inputText').value;
+    const fontSize = document.getElementById('fontSize').value;
+    const fontColor = document.getElementById('fontColor').value;
+    const fontFamily = document.getElementById('fontFamily').value;
 
-  const text = await file.text();
-  const jsonData = JSON.parse(text.replace(/^.*?=\s*/, ''));
-  const messages = [];
-
-  jsonData.forEach(group => {
-    group.dmConversation.messages.forEach(msg => {
-      const data = msg.messageCreate;
-      if (data) {
-        const sender = idToName[data.senderId] || `ID:${data.senderId}`;
-        const time = new Date(data.createdAt).toLocaleString();
-        const text = data.text || "";
-        messages.push({ sender, time, text });
-      }
-    });
-  });
-
-  // 시간순 정렬
-  messages.sort((a, b) => new Date(a.time) - new Date(b.time));
-
-  // 출력
-  const container = document.getElementById("messages");
-  container.innerHTML = "";
-  messages.forEach(msg => {
-    container.innerHTML += `
-      <div class="message">
-        <div class="sender">${msg.sender}</div>
-        <div class="timestamp">${msg.time}</div>
-        <div class="content">${msg.text}</div>
-      </div>
-    `;
-  });
-});
+    const previewText = document.getElementById('previewText');
+    previewText.style.fontSize = fontSize;
+    previewText.style.color = fontColor;
+    previewText.style.fontFamily = fontFamily;
+    previewText.textContent = inputText || "이 텍스트는 실시간으로 변화를 보여줍니다.";
+}
