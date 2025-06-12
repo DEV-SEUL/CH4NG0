@@ -1,16 +1,27 @@
-document.getElementById('fontSize').addEventListener('change', updateText);
-document.getElementById('fontColor').addEventListener('input', updateText);
-document.getElementById('fontFamily').addEventListener('change', updateText);
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('https://i.imgur.com/O4Q8RKw.jpeg'); /* 배경 이미지 */
+  background-size: cover;
+  background-position: center;
+  font-family: 'Courier New', monospace;
+  color: #fff;
+  text-align: center;
+}
 
-function updateText() {
-    const inputText = document.getElementById('inputText').value;
-    const fontSize = document.getElementById('fontSize').value;
-    const fontColor = document.getElementById('fontColor').value;
-    const fontFamily = document.getElementById('fontFamily').value;
+.container {
+  margin-top: 20%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  padding: 2em;
+  border-radius: 10px;
+}
 
-    const previewText = document.getElementById('previewText');
-    previewText.style.fontSize = fontSize;
-    previewText.style.color = fontColor;
-    previewText.style.fontFamily = fontFamily;
-    previewText.textContent = inputText || "이 텍스트는 실시간으로 변화를 보여줍니다.";
+button {
+  margin-top: 1em;
+  padding: 10px 20px;
+  background: #f0c040;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
 }
