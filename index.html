@@ -2,15 +2,124 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>갈매기 페어틀 공장</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AB 레이아웃</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      background: #1a1a1a;
+      color: white;
+      font-family: 'Noto Sans KR', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container {
+      display: flex;
+      width: 600px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .circle-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      background-color: #333;
+    }
+    .center-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .center-content h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
+    .tokens {
+      display: flex;
+      gap: 30px;
+    }
+    .token {
+      width: 60px;
+      height: 60px;
+      background: #555;
+      border-radius: 50%;
+      border: 3px solid white;
+    }
+    .description {
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #ccc;
+      user-select: none;
+    }
+    .color-picker-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    input[type=color] {
+      width: 50px;
+      height: 50px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #0006;
+      transition: transform 0.2s;
+    }
+    input[type=color]:hover {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
 <body>
+
   <div class="container">
-    <h1>돌아와요, 부산항에! </h1>
-    <button onclick="alert('Hello World!')">시작</button>
+    <!-- 좌측 원형 사진 2개 -->
+    <div class="side-column">
+      <img src="https://placekitten.com/100/100" alt="left 1" class="circle-img" />
+      <img src="https://placekitten.com/101/101" alt="left 2" class="circle-img" />
+    </div>
+
+    <!-- 가운데 AB 텍스트와 토큰 -->
+    <div class="center-content">
+      <h1>AB</h1>
+      <div class="tokens">
+        <div class="token"></div>
+        <div class="token"></div>
+      </div>
+    </div>
+
+    <!-- 우측 원형 사진 2개 -->
+    <div class="side-column">
+      <img src="https://placekitten.com/102/102" alt="right 1" class="circle-img" />
+      <img src="https://placekitten.com/103/103" alt="right 2" class="circle-img" />
+    </div>
   </div>
-  <script src="script.js"></script>
+
+  <div class="description">
+    여기 외관 서술 텍스트를 입력하세요. 예: 건물의 색상, 상태, 특징 등
+  </div>
+
+  <div class="color-picker-wrapper">
+    <input type="color" value="#ff0000" title="색상 선택1" />
+    <input type="color" value="#00ff00" title="색상 선택2" />
+  </div>
+
 </body>
 </html>
