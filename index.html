@@ -144,7 +144,7 @@
             padding: 16px 20px;
             background: #16181c;
             border-bottom: 1px solid #2f3336;
-            display: flex;
+            display: none;
             justify-content: space-between;
             align-items: center;
         }
@@ -447,6 +447,24 @@
             margin-top: 12px;
         }
 
+        .footer {
+            padding: 16px;
+            background: #16181c;
+            border-top: 1px solid #2f3336;
+            text-align: center;
+            font-size: 13px;
+            color: #71767b;
+        }
+
+        .footer a {
+            color: #1d9bf0;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -476,13 +494,17 @@
             .sidebar.show {
                 transform: translateX(0);
             }
+
+            .message-content {
+                max-width: 80%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <div class="logo">트위터 DM</div>
+            <div class="logo">💬 트위터 DM 뷰어</div>
             <label for="fileInput" class="upload-btn">
                 📁 파일 불러오기
             </label>
@@ -496,10 +518,14 @@
         <div class="stats" id="stats">파일을 불러와주세요</div>
         
         <ul class="conversation-list" id="conversationList"></ul>
+
+        <div class="footer">
+            Made with ❤️ • <a href="https://github.com" target="_blank">GitHub</a>
+        </div>
     </div>
 
     <div class="main-content">
-        <div class="chat-header" id="chatHeader" style="display: none;">
+        <div class="chat-header" id="chatHeader">
             <div class="chat-title" id="chatTitle">대화 선택</div>
             <button class="settings-btn" onclick="openSettings()">⚙️ 설정</button>
         </div>
@@ -508,7 +534,7 @@
             <div class="empty-state">
                 <div class="empty-icon">💬</div>
                 <div class="empty-title">환영합니다</div>
-                <div class="empty-desc">대화를 선택하면 메시지를 볼 수 있습니다</div>
+                <div class="empty-desc">왼쪽에서 파일을 불러온 후 대화를 선택하세요</div>
             </div>
         </div>
     </div>
@@ -563,22 +589,39 @@
             const file = event.target.files[0];
             if (!file) return;
 
+            console.log('파일 로딩 중...', file.name);
+            document.getElementById('stats').textContent = '파일 읽는 중...';
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     let content = e.target.result;
+                    console.log('파일 크기:', content.length);
+                    
+                    // 트위터 아카이브 포맷 정리
                     content = content.replace(/^window\.__THAR_CONFIG\s*=\s*/, '');
                     content = content.replace(/^var\s+\w+\s*=\s*/, '');
                     content = content.replace(/;?\s*$/, '');
                     
                     dmData = JSON.parse(content);
+                    console.log('파싱 완료:', dmData);
+                    
                     processMessages();
                     displayConversations();
+                    
+                    console.log('대화 처리 완료');
                 } catch (error) {
+                    console.error('에러:', error);
                     alert('파일을 읽는 중 오류가 발생했습니다.\n\n' + error.message);
-                    console.error(error);
+                    document.getElementById('stats').textContent = '파일 읽기 실패';
                 }
             };
+            
+            reader.onerror = function() {
+                alert('파일을 읽을 수 없습니다.');
+                document.getElementById('stats').textContent = '파일 읽기 실패';
+            };
+            
             reader.readAsText(file);
         }
 
@@ -586,6 +629,9 @@
             allConversations = {};
             let messages = [];
             
+            console.log('메시지 처리 시작:', dmData);
+            
+            // 다양한 트위터 아카이브 포맷 지원
             if (Array.isArray(dmData)) {
                 messages = dmData;
             } else if (dmData.conversations) {
@@ -593,6 +639,8 @@
             } else if (dmData[0] && dmData[0].dmConversation) {
                 messages = dmData.flatMap(item => item.dmConversation.messages || []);
             }
+
+            console.log('메시지 배열:', messages.length);
 
             messages.forEach(msg => {
                 let conversationId, conversationName, messageData;
@@ -628,6 +676,7 @@
                 allConversations[conversationId].messages.push(...messageData);
             });
 
+            // 메시지 시간순 정렬
             Object.values(allConversations).forEach(conv => {
                 conv.messages.sort((a, b) => {
                     const timeA = new Date(a.createdAt || a.messageCreate?.createdAt || 0);
@@ -638,6 +687,7 @@
             });
 
             conversations = { ...allConversations };
+            console.log('대화 처리 완료:', Object.keys(conversations).length);
         }
 
         function displayConversations() {
@@ -649,6 +699,8 @@
             
             document.getElementById('stats').textContent = 
                 `대화 ${convArray.length}개 • 메시지 ${totalMessages}개`;
+
+            console.log('대화 표시:', convArray.length);
 
             convArray.forEach(conv => {
                 const li = document.createElement('li');
@@ -693,6 +745,7 @@
             const messagesArea = document.getElementById('messagesArea');
             messagesArea.innerHTML = '';
             
+            // 내 ID 추정
             const senderCounts = {};
             conversation.messages.forEach(msg => {
                 const senderId = msg.senderId || msg.messageCreate?.senderId || '';
@@ -850,6 +903,7 @@
             return div.innerHTML;
         }
 
+        // 모달 바깥 클릭시 닫기
         document.getElementById('settingsModal').addEventListener('click', function(e) {
             if (e.target === this) closeSettings();
         });
