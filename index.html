@@ -12,43 +12,48 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #15202b;
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", sans-serif;
+            background: #0a0a0a;
             color: #fff;
             height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: #16181c;
+            border-right: 1px solid #2f3336;
             display: flex;
             flex-direction: column;
         }
 
-        .header {
-            background: #1e2732;
+        .sidebar-header {
             padding: 20px;
-            border-bottom: 1px solid #38444d;
-            text-align: center;
+            border-bottom: 1px solid #2f3336;
         }
 
-        .header h1 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1d9bf0;
+            margin-bottom: 20px;
         }
 
-        .file-input-container {
-            margin-top: 10px;
-        }
-
-        .file-input-label {
+        .upload-btn {
+            width: 100%;
+            padding: 14px;
             background: #1d9bf0;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 9999px;
-            cursor: pointer;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
             font-weight: 700;
-            display: inline-block;
+            font-size: 15px;
+            cursor: pointer;
             transition: background 0.2s;
         }
 
-        .file-input-label:hover {
+        .upload-btn:hover {
             background: #1a8cd8;
         }
 
@@ -56,213 +61,202 @@
             display: none;
         }
 
-        .filter-section {
-            background: #253341;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 12px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+        .search-container {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2f3336;
         }
 
-        .filter-section h3 {
-            font-size: 14px;
-            margin-bottom: 10px;
-            color: #8899a6;
-        }
-
-        .filter-inputs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .filter-inputs input {
-            flex: 1;
-            padding: 10px;
-            background: #15202b;
-            border: 1px solid #38444d;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 13px;
-        }
-
-        .filter-inputs input::placeholder {
-            color: #8899a6;
-        }
-
-        .filter-button {
-            background: #1d9bf0;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 13px;
-            transition: background 0.2s;
+        .search-input {
             width: 100%;
-        }
-
-        .filter-button:hover {
-            background: #1a8cd8;
-        }
-
-        .clear-filter {
-            background: #5b7083;
-            margin-top: 8px;
-        }
-
-        .clear-filter:hover {
-            background: #6e8599;
-        }
-
-        .container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .sidebar {
-            width: 350px;
-            background: #1e2732;
-            border-right: 1px solid #38444d;
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
-
-        .search-box {
-            padding: 15px;
-            border-bottom: 1px solid #38444d;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px;
-            background: #253341;
-            border: none;
-            border-radius: 20px;
+            padding: 12px 16px;
+            background: #202327;
+            border: 1px solid #2f3336;
+            border-radius: 24px;
             color: #fff;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        .search-box input::placeholder {
-            color: #8899a6;
+        .search-input:focus {
+            outline: none;
+            border-color: #1d9bf0;
+            background: #16181c;
+        }
+
+        .stats {
+            padding: 12px 16px;
+            background: #202327;
+            border-bottom: 1px solid #2f3336;
+            font-size: 13px;
+            color: #71767b;
         }
 
         .conversation-list {
+            flex: 1;
+            overflow-y: auto;
             list-style: none;
         }
 
         .conversation-item {
-            padding: 15px;
-            border-bottom: 1px solid #38444d;
+            padding: 16px;
+            border-bottom: 1px solid #2f3336;
             cursor: pointer;
             transition: background 0.2s;
         }
 
         .conversation-item:hover {
-            background: #253341;
+            background: #16181c;
         }
 
         .conversation-item.active {
-            background: #253341;
-            border-left: 3px solid #1d9bf0;
+            background: #16181c;
+            border-right: 3px solid #1d9bf0;
         }
 
         .conversation-name {
             font-weight: 700;
-            margin-bottom: 5px;
             font-size: 15px;
+            margin-bottom: 4px;
+            color: #e7e9ea;
         }
 
         .conversation-preview {
-            color: #8899a6;
             font-size: 13px;
-            white-space: nowrap;
+            color: #71767b;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .conversation-count {
-            color: #8899a6;
+        .conversation-time {
             font-size: 12px;
-            margin-top: 5px;
+            color: #71767b;
+            margin-top: 4px;
         }
 
-        .messages-container {
+        .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #15202b;
+            background: #0a0a0a;
         }
 
-        .messages-header {
-            padding: 15px 20px;
-            background: #1e2732;
-            border-bottom: 1px solid #38444d;
+        .chat-header {
+            padding: 16px 20px;
+            background: #16181c;
+            border-bottom: 1px solid #2f3336;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .messages-header h2 {
-            font-size: 18px;
-            font-weight: 700;
+        .chat-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #e7e9ea;
         }
 
-        .messages-content {
+        .settings-btn {
+            padding: 8px 16px;
+            background: #202327;
+            color: #e7e9ea;
+            border: none;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .settings-btn:hover {
+            background: #2f3336;
+        }
+
+        .messages-area {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
         }
 
-        .message {
+        .date-separator {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        .date-separator span {
+            background: #2f3336;
+            color: #71767b;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .message-group {
             display: flex;
-            margin-bottom: 20px;
-            animation: fadeIn 0.3s;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.sent {
+        .message-group.sent {
             flex-direction: row-reverse;
         }
 
-        .message-bubble {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            word-wrap: break-word;
-        }
-
-        .message.received .message-bubble {
-            background: #253341;
-            border-bottom-left-radius: 4px;
-        }
-
-        .message.sent .message-bubble {
+        .message-avatar {
+            width: 40px;
+            height: 40px;
             background: #1d9bf0;
-            border-bottom-right-radius: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
         }
 
-        .message-text {
-            margin-bottom: 5px;
-            line-height: 1.4;
-        }
-
-        .message-time {
-            font-size: 11px;
-            opacity: 0.7;
-            margin-top: 5px;
+        .message-content {
+            max-width: 60%;
         }
 
         .message-sender {
-            font-size: 11px;
-            opacity: 0.8;
-            margin-bottom: 3px;
+            font-size: 13px;
+            color: #71767b;
+            margin-bottom: 4px;
             font-weight: 600;
+        }
+
+        .message-group.sent .message-sender {
+            text-align: right;
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .message-group.received .message-bubble {
+            background: #2f3336;
+            color: #e7e9ea;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-group.sent .message-bubble {
+            background: #1d9bf0;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #71767b;
+            margin-top: 4px;
+        }
+
+        .message-group.sent .message-time {
+            text-align: right;
         }
 
         .empty-state {
@@ -271,78 +265,283 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            color: #8899a6;
-            text-align: center;
-            padding: 40px;
+            color: #71767b;
         }
 
-        .empty-state svg {
-            width: 80px;
-            height: 80px;
+        .empty-icon {
+            font-size: 80px;
             margin-bottom: 20px;
             opacity: 0.5;
         }
 
-        .stats {
-            padding: 15px;
-            background: #253341;
-            border-bottom: 1px solid #38444d;
-            font-size: 13px;
-            color: #8899a6;
+        .empty-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #e7e9ea;
+            margin-bottom: 8px;
         }
 
-        .active-filter {
-            background: #1e3a28;
-            color: #7dd397;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-top: 8px;
-            display: inline-block;
+        .empty-desc {
+            font-size: 15px;
+            color: #71767b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #16181c;
+            border-radius: 16px;
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #e7e9ea;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #71767b;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #2f3336;
+        }
+
+        .setting-section {
+            margin-bottom: 24px;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e7e9ea;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .filter-inputs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .filter-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: #202327;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            color: #e7e9ea;
+            font-size: 15px;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: #1d9bf0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 24px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1d9bf0;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1a8cd8;
+        }
+
+        .btn-secondary {
+            background: #202327;
+            color: #e7e9ea;
+        }
+
+        .btn-secondary:hover {
+            background: #2f3336;
+        }
+
+        .color-pickers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .color-item {
+            background: #202327;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #2f3336;
+        }
+
+        .color-label {
+            font-size: 13px;
+            color: #71767b;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .color-input {
+            width: 100%;
+            height: 48px;
+            border: 2px solid #2f3336;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .filter-status {
+            background: #1d4e38;
+            color: #4ade80;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #16181c;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2f3336;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d4144;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: absolute;
+                z-index: 100;
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>📬 트위터 DM 뷰어</h1>
-        <div class="file-input-container">
-            <label for="fileInput" class="file-input-label">
-                direct-messages.js 파일 선택
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">트위터 DM</div>
+            <label for="fileInput" class="upload-btn">
+                📁 파일 불러오기
             </label>
             <input type="file" id="fileInput" accept=".js">
         </div>
-        <div class="filter-section" id="filterSection" style="display: none;">
-            <h3>🔍 특정 대화만 보기</h3>
-            <div class="filter-inputs">
-                <input type="text" id="userId1" placeholder="사용자 1 ID 또는 이름">
-                <input type="text" id="userId2" placeholder="사용자 2 ID 또는 이름">
+        
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="대화 검색">
+        </div>
+        
+        <div class="stats" id="stats">파일을 불러와주세요</div>
+        
+        <ul class="conversation-list" id="conversationList"></ul>
+    </div>
+
+    <div class="main-content">
+        <div class="chat-header" id="chatHeader" style="display: none;">
+            <div class="chat-title" id="chatTitle">대화 선택</div>
+            <button class="settings-btn" onclick="openSettings()">⚙️ 설정</button>
+        </div>
+        
+        <div class="messages-area" id="messagesArea">
+            <div class="empty-state">
+                <div class="empty-icon">💬</div>
+                <div class="empty-title">환영합니다</div>
+                <div class="empty-desc">대화를 선택하면 메시지를 볼 수 있습니다</div>
             </div>
-            <button class="filter-button" onclick="applyFilter()">대화 필터링</button>
-            <button class="filter-button clear-filter" onclick="clearFilter()">전체 보기</button>
-            <div id="filterStatus"></div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="sidebar">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="대화 검색...">
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">⚙️ 설정</div>
+                <button class="close-btn" onclick="closeSettings()">×</button>
             </div>
-            <div class="stats" id="stats">파일을 선택해주세요</div>
-            <ul class="conversation-list" id="conversationList"></ul>
-        </div>
 
-        <div class="messages-container">
-            <div class="messages-header" id="messagesHeader" style="display: none;">
-                <h2 id="currentConversation">대화를 선택하세요</h2>
+            <div class="setting-section">
+                <label class="setting-label">🔍 대화 필터링</label>
+                <div class="filter-inputs">
+                    <input type="text" class="filter-input" id="userId1" placeholder="사용자 1">
+                    <input type="text" class="filter-input" id="userId2" placeholder="사용자 2">
+                </div>
+                <button class="btn btn-primary" onclick="applyFilter()">필터 적용</button>
+                <button class="btn btn-secondary" onclick="clearFilter()">전체 보기</button>
+                <div id="filterStatus"></div>
             </div>
-            <div class="messages-content" id="messagesContent">
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"/>
-                    </svg>
-                    <h3>대화를 선택하세요</h3>
-                    <p>왼쪽에서 대화를 선택하면<br>메시지를 볼 수 있습니다</p>
+
+            <div class="setting-section">
+                <label class="setting-label">🎨 색상 설정</label>
+                <div class="color-pickers">
+                    <div class="color-item">
+                        <label class="color-label">보낸 메시지</label>
+                        <input type="color" class="color-input" id="sentColor" value="#1d9bf0">
+                    </div>
+                    <div class="color-item">
+                        <label class="color-label">받은 메시지</label>
+                        <input type="color" class="color-input" id="receivedColor" value="#2f3336">
+                    </div>
                 </div>
             </div>
         </div>
@@ -353,11 +552,12 @@
         let conversations = {};
         let allConversations = {};
         let currentConversation = null;
-        let activeFilter = null;
         let myUserId = null;
 
         document.getElementById('fileInput').addEventListener('change', handleFileSelect);
         document.getElementById('searchInput').addEventListener('input', handleSearch);
+        document.getElementById('sentColor').addEventListener('input', updateColors);
+        document.getElementById('receivedColor').addEventListener('input', updateColors);
 
         function handleFileSelect(event) {
             const file = event.target.files[0];
@@ -367,18 +567,15 @@
             reader.onload = function(e) {
                 try {
                     let content = e.target.result;
-                    
                     content = content.replace(/^window\.__THAR_CONFIG\s*=\s*/, '');
                     content = content.replace(/^var\s+\w+\s*=\s*/, '');
                     content = content.replace(/;?\s*$/, '');
                     
                     dmData = JSON.parse(content);
-                    
                     processMessages();
                     displayConversations();
-                    document.getElementById('filterSection').style.display = 'block';
                 } catch (error) {
-                    alert('파일을 읽는 중 오류가 발생했습니다. direct-messages.js 파일이 맞는지 확인해주세요.\n\n오류: ' + error.message);
+                    alert('파일을 읽는 중 오류가 발생했습니다.\n\n' + error.message);
                     console.error(error);
                 }
             };
@@ -387,7 +584,6 @@
 
         function processMessages() {
             allConversations = {};
-            
             let messages = [];
             
             if (Array.isArray(dmData)) {
@@ -444,66 +640,15 @@
             conversations = { ...allConversations };
         }
 
-        function applyFilter() {
-            const user1 = document.getElementById('userId1').value.trim().toLowerCase();
-            const user2 = document.getElementById('userId2').value.trim().toLowerCase();
-
-            if (!user1 || !user2) {
-                alert('두 사용자 ID를 모두 입력해주세요');
-                return;
-            }
-
-            conversations = {};
-            
-            Object.values(allConversations).forEach(conv => {
-                const participantIds = conv.participants.map(p => p.toLowerCase());
-                const conversationIdLower = conv.id.toLowerCase();
-                const conversationNameLower = conv.name.toLowerCase();
-                
-                const hasUser1 = participantIds.some(p => p.includes(user1)) || 
-                               conversationIdLower.includes(user1) || 
-                               conversationNameLower.includes(user1);
-                               
-                const hasUser2 = participantIds.some(p => p.includes(user2)) || 
-                               conversationIdLower.includes(user2) || 
-                               conversationNameLower.includes(user2);
-
-                if (hasUser1 && hasUser2) {
-                    conversations[conv.id] = conv;
-                }
-            });
-
-            activeFilter = { user1, user2 };
-            displayConversations();
-            
-            const statusDiv = document.getElementById('filterStatus');
-            if (Object.keys(conversations).length > 0) {
-                statusDiv.innerHTML = `<div class="active-filter">✓ ${Object.keys(conversations).length}개의 대화 필터링됨</div>`;
-            } else {
-                statusDiv.innerHTML = `<div style="color: #f4212e; margin-top: 8px; font-size: 12px;">해당 사용자 간의 대화를 찾을 수 없습니다</div>`;
-            }
-        }
-
-        function clearFilter() {
-            conversations = { ...allConversations };
-            activeFilter = null;
-            document.getElementById('userId1').value = '';
-            document.getElementById('userId2').value = '';
-            document.getElementById('filterStatus').innerHTML = '';
-            displayConversations();
-        }
-
         function displayConversations() {
             const list = document.getElementById('conversationList');
             list.innerHTML = '';
 
             const convArray = Object.values(conversations);
-            
             const totalMessages = convArray.reduce((sum, c) => sum + c.messages.length, 0);
-            const filterText = activeFilter ? ` (필터링됨)` : '';
             
             document.getElementById('stats').textContent = 
-                `총 ${convArray.length}개의 대화${filterText} | ${totalMessages}개의 메시지`;
+                `대화 ${convArray.length}개 • 메시지 ${totalMessages}개`;
 
             convArray.forEach(conv => {
                 const li = document.createElement('li');
@@ -511,11 +656,12 @@
                 
                 const lastMessage = conv.messages[conv.messages.length - 1];
                 const lastText = getMessageText(lastMessage);
+                const lastTime = new Date(lastMessage.createdAt || lastMessage.messageCreate?.createdAt);
                 
                 li.innerHTML = `
                     <div class="conversation-name">${escapeHtml(conv.name)}</div>
                     <div class="conversation-preview">${escapeHtml(lastText.substring(0, 50))}${lastText.length > 50 ? '...' : ''}</div>
-                    <div class="conversation-count">${conv.messages.length}개의 메시지</div>
+                    <div class="conversation-time">${formatDate(lastTime)}</div>
                 `;
                 
                 li.addEventListener('click', () => displayMessages(conv));
@@ -541,15 +687,12 @@
             });
             event.currentTarget.classList.add('active');
 
-            const header = document.getElementById('messagesHeader');
-            const content = document.getElementById('messagesContent');
+            document.getElementById('chatHeader').style.display = 'flex';
+            document.getElementById('chatTitle').textContent = conversation.name;
             
-            header.style.display = 'block';
-            document.getElementById('currentConversation').textContent = conversation.name;
+            const messagesArea = document.getElementById('messagesArea');
+            messagesArea.innerHTML = '';
             
-            content.innerHTML = '';
-            
-            // 내 ID 추정 (가장 많이 보낸 메시지의 발신자)
             const senderCounts = {};
             conversation.messages.forEach(msg => {
                 const senderId = msg.senderId || msg.messageCreate?.senderId || '';
@@ -559,49 +702,146 @@
                 senderCounts[a] > senderCounts[b] ? a : b
             );
             
+            let lastDate = null;
+            
             conversation.messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
+                const time = new Date(msg.createdAt || msg.messageCreate?.createdAt);
+                const currentDate = time.toLocaleDateString('ko-KR');
+                
+                if (lastDate !== currentDate) {
+                    const divider = document.createElement('div');
+                    divider.className = 'date-separator';
+                    divider.innerHTML = `<span>${currentDate}</span>`;
+                    messagesArea.appendChild(divider);
+                    lastDate = currentDate;
+                }
+                
                 const senderId = msg.senderId || msg.messageCreate?.senderId || '';
                 const isSent = senderId === myUserId;
-                
-                messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
-                
                 const text = getMessageText(msg);
-                const time = new Date(msg.createdAt || msg.messageCreate?.createdAt);
+                const senderName = isSent ? '나' : (senderId.substring(0, 10) || '상대방');
+                const initial = senderName[0];
                 
-                const senderLabel = isSent ? '나' : (senderId || '상대방');
+                const messageGroup = document.createElement('div');
+                messageGroup.className = `message-group ${isSent ? 'sent' : 'received'}`;
                 
-                messageDiv.innerHTML = `
-                    <div class="message-bubble">
-                        <div class="message-sender">${escapeHtml(senderLabel)}</div>
-                        <div class="message-text">${escapeHtml(text)}</div>
+                messageGroup.innerHTML = `
+                    <div class="message-avatar">${escapeHtml(initial)}</div>
+                    <div class="message-content">
+                        <div class="message-sender">${escapeHtml(senderName)}</div>
+                        <div class="message-bubble">${escapeHtml(text)}</div>
                         <div class="message-time">${formatTime(time)}</div>
                     </div>
                 `;
                 
-                content.appendChild(messageDiv);
+                messagesArea.appendChild(messageGroup);
             });
             
-            content.scrollTop = content.scrollHeight;
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+
+        function applyFilter() {
+            const user1 = document.getElementById('userId1').value.trim().toLowerCase();
+            const user2 = document.getElementById('userId2').value.trim().toLowerCase();
+
+            if (!user1 || !user2) {
+                alert('두 사용자를 모두 입력해주세요');
+                return;
+            }
+
+            conversations = {};
+            
+            Object.values(allConversations).forEach(conv => {
+                const participantIds = conv.participants.map(p => p.toLowerCase());
+                const conversationIdLower = conv.id.toLowerCase();
+                const conversationNameLower = conv.name.toLowerCase();
+                
+                const hasUser1 = participantIds.some(p => p.includes(user1)) || 
+                               conversationIdLower.includes(user1) || 
+                               conversationNameLower.includes(user1);
+                               
+                const hasUser2 = participantIds.some(p => p.includes(user2)) || 
+                               conversationIdLower.includes(user2) || 
+                               conversationNameLower.includes(user2);
+
+                if (hasUser1 && hasUser2) {
+                    conversations[conv.id] = conv;
+                }
+            });
+
+            displayConversations();
+            
+            const statusDiv = document.getElementById('filterStatus');
+            if (Object.keys(conversations).length > 0) {
+                statusDiv.innerHTML = `<div class="filter-status">✓ ${Object.keys(conversations).length}개의 대화 필터링됨</div>`;
+            } else {
+                statusDiv.innerHTML = `<div style="background: #4a1d1d; color: #f87171; padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 12px;">대화를 찾을 수 없습니다</div>`;
+            }
+        }
+
+        function clearFilter() {
+            conversations = { ...allConversations };
+            document.getElementById('userId1').value = '';
+            document.getElementById('userId2').value = '';
+            document.getElementById('filterStatus').innerHTML = '';
+            displayConversations();
+        }
+
+        function updateColors() {
+            const sentColor = document.getElementById('sentColor').value;
+            const receivedColor = document.getElementById('receivedColor').value;
+
+            const style = document.createElement('style');
+            style.id = 'custom-colors';
+            
+            const existingStyle = document.getElementById('custom-colors');
+            if (existingStyle) existingStyle.remove();
+
+            style.textContent = `
+                .message-group.sent .message-bubble {
+                    background: ${sentColor} !important;
+                }
+                .message-group.received .message-bubble {
+                    background: ${receivedColor} !important;
+                }
+                .message-group.sent .message-avatar {
+                    background: ${sentColor} !important;
+                }
+            `;
+            
+            document.head.appendChild(style);
+        }
+
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('show');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('show');
         }
 
         function getMessageText(msg) {
             if (msg.text) return msg.text;
             if (msg.messageCreate?.text) return msg.messageCreate.text;
             if (msg.messageCreate?.messageData?.text) return msg.messageCreate.messageData.text;
-            return '[메시지 내용 없음]';
+            return '[메시지 없음]';
         }
 
         function formatTime(date) {
             if (!date || isNaN(date)) return '';
+            return date.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function formatDate(date) {
+            if (!date || isNaN(date)) return '';
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            
-            return `${year}.${month}.${day} ${hours}:${minutes}`;
+            if (days === 0) return '오늘';
+            if (days === 1) return '어제';
+            if (days < 7) return `${days}일 전`;
+            return date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' });
         }
 
         function escapeHtml(text) {
@@ -609,6 +849,10 @@
             div.textContent = text;
             return div.innerHTML;
         }
+
+        document.getElementById('settingsModal').addEventListener('click', function(e) {
+            if (e.target === this) closeSettings();
+        });
     </script>
 </body>
 </html>
